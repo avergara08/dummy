@@ -1,0 +1,24 @@
+
+name = Nevia
+description = A themeforest template, drupalized by Aaron.
+package = Core
+version = VERSION
+core = 7.x
+
+stylesheets[all][] = css/style.css
+stylesheets[all][] = css/colors/blue.css
+stylesheets[all][] = css/overrides.css
+
+scripts[] = scripts/jquery.min.js
+scripts[] = scripts/jquery.flexslider.js
+scripts[] = scripts/jquery.selectnav.js
+scripts[] = scripts/jquery.twitter.js
+scripts[] = scripts/jquery.modernizr.js
+scripts[] = scripts/jquery.easing.1.3.js
+;scripts[] = scripts/jquery.contact.js
+scripts[] = scripts/jquery.isotope.min.js
+;scripts[] = scripts/jquery.jcarousel.js
+scripts[] = scripts/jquery.fancybox.min.js
+scripts[] = scripts/jquery.layerslider.min.js
+;scripts[] = scripts/jquery.shop.js
+scripts[] = scripts/custom.js

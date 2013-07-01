@@ -1,0 +1,215 @@
+<?php
+  $theme_path = '/'.path_to_theme();
+?>
+
+<!-- Wrapper / Start -->
+<div id="wrapper">
+
+<!-- Header
+================================================== -->
+<div id="top-line"></div>
+
+<!-- 960 Container -->
+<div class="container">
+
+	<!-- Header -->
+	<header id="header">
+
+		<!-- Logo -->
+		<div class="ten columns">
+			<div id="logo">
+				<h1><a href="<?php print $front_page; ?>"><img src="<?php print $theme_path; ?>/images/logo.png" alt="Nevia Premium Template" /></a></h1>
+				<div id="tagline">And I was like.. pew pew pew!</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+
+		<!-- Social / Contact -->
+		<div class="six columns">
+
+			<!-- Social Icons -->
+			<ul class="social-icons">
+				<li class="twitter"><a href="#">Twitter</a></li>
+				<li class="facebook"><a href="#">Facebook</a></li>
+				<li class="dribbble"><a href="#">Dribbble</a></li>
+				<li class="linkedin"><a href="#">LinkedIn</a></li>
+				<li class="rss"><a href="#">RSS</a></li>
+			</ul>
+
+			<div class="clearfix"></div>
+
+			<!-- Contact Details -->
+			<!--<div class="contact-details">Contact Phone: +48 880 440 110</div>-->
+
+			<div class="clearfix"></div>
+
+			<!-- Search -->
+			<nav class="top-search">
+				<form action="404-page.html" method="get">
+					<button class="search-btn"></button>
+					<input class="search-field" type="text" onblur="if(this.value=='')this.value='Search';" onfocus="if(this.value=='Search')this.value='';" value="Search" />
+				</form>
+			</nav>
+
+		</div>
+	</header>
+	<!-- Header / End -->
+
+	<div class="clearfix"></div>
+
+</div>
+<!-- 960 Container / End -->
+
+
+<!-- Navigation
+================================================== -->
+<nav id="navigation" class="style-1">
+
+<div class="left-corner"></div>
+<div class="right-corner"></div>
+<?php
+  $main_menu_options = array(
+    'links' => $main_menu,
+    'attributes' => array(
+      'id' => 'responsive',
+      'class' => array('menu'),
+    ),
+  );
+  print theme('links__system_main_menu', $main_menu_options);
+?>
+
+</nav>
+<div class="clearfix"></div>
+
+
+<!-- Content
+================================================== -->
+<div id="content">
+
+
+<!-- 960 Container -->
+<div class="container floated">
+
+	<div class="sixteen floated page-title">
+
+		<h2>Coming soon..ish</h2>
+
+	</div>
+
+</div>
+<!-- 960 Container / End -->
+
+
+<!-- Page Content -->
+<div class="page-content">
+
+	<!-- 960 Container -->
+	<div class="container">
+
+		<!-- Sixteen Columns -->
+		<div class="sixteen columns">
+
+			<section id="not-found">
+				<h2>Err.. <i class="icon-beaker"></i></h2>
+				<p>We are still under construction. Check back soon :)</p>
+			</section>
+
+		</div>
+
+	</div>
+	<!-- 960 Container / End -->
+
+</div>
+<!-- Page Content / End -->
+
+
+</div>
+<!-- Content / End -->
+
+</div>
+<!-- Wrapper / End -->
+
+
+<!-- Footer
+================================================== -->
+
+<!-- Footer / Start -->
+<footer id="footer">
+	<!-- 960 Container -->
+	<div class="container">
+
+		<!-- About -->
+		<div class="four columns">
+			<img id="logo-footer" src="<?php print $theme_path; ?>/images/logo-footer.png" alt="" />
+			<p>"You can worship a rock for all I care. Just don't throw it at me."</p>
+			<p>Then I was like.. pew pew pew!</p>
+		</div>
+
+		<!-- Contact Details -->
+		<div class="four columns">
+			<h4>Contact Details</h4>
+			<ul class="contact-details-alt">
+				<li><i class="halflings white map-marker"></i> <p><strong>Address:</strong>#123 Asawa ni Marie. Araw gabi. Walang pantry</p></li>
+				<li><i class="halflings white user"></i> <p><strong>Phone:</strong> +11 101 001 000</p></li>
+				<li><i class="halflings white envelope"></i> <p><strong>Email:</strong> <a href="#">spammers@haven.com</a></p></li>
+			</ul>
+		</div>
+
+		<!-- Photo Stream -->
+		<div class="four columns">
+			<h4>Photo Stream</h4>
+			<div class="flickr-widget">
+				<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=6&amp;display=latest&amp;size=s&amp;layout=x&amp;source=user&amp;user=72179079@N00"></script>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+
+		<!-- Twitter -->
+		<div class="four columns">
+			<h4>Dota 2</h4>
+			<ul id="twitter"></ul>
+				<script type="text/javascript">
+					jQuery(document).ready(function($){
+						$.getJSON('twitter.php?url='+encodeURIComponent('statuses/user_timeline.json?screen_name=dota2&count=2'), function(tweets){
+						$("#twitter").html(tz_format_twitter(tweets));
+					}); });
+				</script>
+			<div class="clearfix"></div>
+		</div>
+
+	</div>
+	<!-- 960 Container / End -->
+
+</footer>
+<!-- Footer / End -->
+
+
+<!-- Footer Bottom / Start  -->
+<footer id="footer-bottom">
+
+	<!-- 960 Container -->
+	<div class="container">
+
+		<!-- Copyrights -->
+		<div class="eight columns">
+			<div class="copyright">
+				&copy; Copyright 2013 by <a href="#">Nevia</a>. All Rights Reserved.
+			</div>
+		</div>
+
+		<!-- Menu -->
+		<div class="eight columns">
+			<nav id="sub-menu">
+				<ul>
+					<li><a href="#">FAQ's</a></li>
+					<li><a href="#">Sitemap</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+			</nav>
+		</div>
+
+	</div>
+	<!-- 960 Container / End -->
+
+</footer>
+<!-- Footer Bottom / End -->

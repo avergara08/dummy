@@ -1,0 +1,16 @@
+#logo a img{
+  height: 27px;
+  width: 130px;
+}
+
+ul.menu li{
+  margin: 0;
+}
+
+.menu i.halflings{
+  margin-right: 5px;
+}
+
+#logo-footer{
+  width: auto;
+}
