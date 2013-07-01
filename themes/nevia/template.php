@@ -58,7 +58,7 @@ function nevia_links__system_main_menu($variables){
       $output .= '<li' . drupal_attributes(array('class' => $class)) . '>';
       
       // add icon
-      $icon_class = $icon_classes[$key];
+      $icon_class = isset($icon_classes[$key]) ? $icon_classes[$key] : null;
       if(!empty($icon_class)){
         $link_icon = '<i class="halflings white '.$icon_class.'"></i>';
         $link['title'] = $link_icon . $link['title'];
