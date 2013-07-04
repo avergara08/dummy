@@ -19,7 +19,9 @@
 		<div class="ten columns">
 			<div id="logo">
 				<h1><a href="<?php print $front_page; ?>"><img src="<?php print $theme_path; ?>/images/logo.png" alt="Nevia Premium Template" /></a></h1>
-				<div id="tagline">And I was like.. pew pew pew!</div>
+        <?php if ($site_slogan): ?>
+          <div id="tagline"><?php print $site_slogan; ?></div>
+        <?php endif; ?>
 				<div class="clearfix"></div>
 			</div>
 		</div>
@@ -90,16 +92,14 @@
 <div class="container floated">
 
 	<div class="sixteen floated page-title">
+    <?php if ($title): ?>
+      <h2><?php print $title; ?></h2>
+    <?php endif; ?>
 
-		<h2>Our Blog</h2>
-
-		<nav id="breadcrumbs">
-			<ul>
-				<li>You are here:</li>
-				<li><a href="#">Home</a></li>
-				<li>Blog</li>
-			</ul>
-		</nav>
+		
+    <?php if ($breadcrumb): ?>
+      <div id="breadcrumb"><?php print $breadcrumb; ?></div>
+    <?php endif; ?>
 
 	</div>
 
@@ -108,11 +108,36 @@
 
 
 <!-- 960 Container -->
-<div class="container floated">
-
-	<!-- Page Content -->
-  <!-- Sidebar -->
-	<div class="four floated sidebar left">
+<div class="container content-wrapper floated">  
+	<div class="eleven floated left">
+    <?php if ($messages): ?>
+      <!--<div class="notification notice closeable" style="margin: 40px 0 0px 0;">-->
+        <?php print $messages; ?>
+      <!--</div>-->
+    <?php endif; ?>
+    
+    <div class="clearfix"></div>
+    
+    <section class="page-content">
+      <!--<h3 class="margin-reset">haha</h3>-->
+      <!--<p class="margin">test</p>-->
+      
+      <?php if ($tabs && !empty($tabs['#primary'])): ?>
+        <div style="margin: 0px 0px 40px; display: block;" class="notification success tabs closeable" id="notification_1">
+          <!--<p>Nevia includes the popular Font Awesome &amp; Glyphicons sets with over 360 Icons!</p>-->
+          <!--<i class="icon-tasks"></i> --><?php print render($tabs); ?>
+        <a href="#" class="close"><i class="icon-remove"></i></a></div>
+        
+      <?php endif; ?>
+      <!--<div class="line"></div>-->
+     
+      <?php print render($page['content']); ?>
+    </section>
+    
+    <div class="clearfix"></div>
+	</div>
+  
+  <div class="four floated sidebar right">
 		<aside class="sidebar">
 
 			<!-- Search -->
@@ -177,130 +202,6 @@
 
 		</aside>
 	</div>
-  
-	<div class="eleven floated right">
-
-		<!-- Post -->
-		<article class="post">
-
-			<figure class="post-img">
-				<a href="blog-post.html"><img src="<?php print $theme_path; ?>/images/blog-01.jpg" alt="" /></a>
-			</figure>
-
-			<section class="date">
-				<span class="day">28</span>
-				<span class="month">Dec</span>
-			</section>
-
-			<section class="post-content">
-
-				<header class="meta">
-					<h2><a href="blog-post.html">The Boating Life Begins With a Good Storm</a></h2>
-					<span><i class="halflings user"></i>By <a href="#">admin</a></span>
-					<span><i class="halflings tag"></i><a href="#">Boating</a>, <a href="#">Recreation</a></span>
-					<span><i class="halflings comments"></i>With <a href="#">12 Comments</a></span>
-				</header>
-
-				<p>Maecenas dolor est, interdum a euismod eu, accumsan posuere nisl. Nam sed iaculis massa. Sed nisl lectus, tempor sed euismod quis, sollicitudin nec est. Suspendisse dignissim bibendum tempor. Nam erat felis, commodo sed semper commodo vel mauris suspendisse dignissim.</p>
-
-				<a href="blog-post.html" class="button color">Read More</a>
-
-			</section>
-
-		</article>
-
-
-		<!-- Divider -->
-		<div class="line"></div>
-
-
-		<!-- Post -->
-		<article class="post">
-
-			<section class="flexslider">
-				<ul class="slides post-img">
-					<li><a href="<?php print $theme_path; ?>/images/blog-02a-large.jpg" rel="fancybox-gallery" title="Winter Mountains"><img src="<?php print $theme_path; ?>/images/blog-02a.jpg" alt="" /></a></li>
-					<li><a href="<?php print $theme_path; ?>/images/blog-02b-large.jpg" rel="fancybox-gallery" title="Tropical Mountains"><img src="<?php print $theme_path; ?>/images/blog-02b.jpg" alt="" /></a></li>
-					<li><a href="<?php print $theme_path; ?>/images/blog-02c-large.jpg" rel="fancybox-gallery" title="Rolling Prarie Hills"><img src="<?php print $theme_path; ?>/images/blog-02c.jpg" alt="" /></a></li>
-				</ul>
-			</section>
-
-			<section class="date">
-				<span class="day">14</span>
-				<span class="month">Dec</span>
-			</section>
-
-			<section class="post-content">
-
-				<header class="meta">
-					<h2><a href="blog-post.html">Skiing to a Remote Retreat in the Canadian Rockies </a></h2>
-					<span><i class="halflings user"></i>By <a href="#">admin</a></span>
-					<span><i class="halflings tag"></i><a href="#">Mountains</a>, <a href="#">Skiing</a></span>
-					<span><i class="halflings comments"></i>With <a href="#">12 Comments</a></span>
-				</header>
-
-				<p>Maecenas dolor est, interdum a euismod eu, accumsan posuere nisl. Nam sed iaculis massa. Sed nisl lectus, tempor sed euismod quis, sollicitudin nec est. Suspendisse dignissim bibendum tempor. Nam erat felis, commodo sed semper commodo vel mauris suspendisse dignissim.</p>
-
-				<a href="blog-post.html" class="button color">Read More</a>
-
-			</section>
-
-		</article>
-
-
-		<!-- Divider -->
-		<div class="line"></div>
-
-
-		<!-- Post -->
-		<article class="post">
-
-			<figure class="post-img">
-				<a href="blog-post.html"><img src="<?php print $theme_path; ?>/images/blog-03.jpg" alt="" /></a>
-			</figure>
-
-			<section class="date">
-				<span class="day">10</span>
-				<span class="month">Dec</span>
-			</section>
-
-			<section class="post-content">
-
-				<header class="meta">
-					<h2><a href="blog-post.html">Visiting Tuscany Without the Crowds</a></h2>
-					<span><i class="halflings user"></i>By <a href="#">admin</a></span>
-					<span><i class="halflings tag"></i><a href="#">Nature</a>, <a href="#">Tourism</a></span>
-					<span><i class="halflings comments"></i>With <a href="#">12 Comments</a></span>
-				</header>
-
-				<p>Maecenas dolor est, interdum a euismod eu, accumsan posuere nisl. Nam sed iaculis massa. Sed nisl lectus, tempor sed euismod quis, sollicitudin nec est. Suspendisse dignissim bibendum tempor. Nam erat felis, commodo sed semper commodo vel mauris suspendisse dignissim.</p>
-
-				<a href="blog-post.html" class="button color">Read More</a>
-
-			</section>
-
-		</article>
-
-		<!-- Divider -->
-		<div class="line"></div>
-
-		<!-- Pagination -->
-		<nav class="pagination">
-			<ul>
-				<li><a href="#" class="current">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">Next</a></li>
-			</ul>
-			<div class="clearfix"></div>
-		</nav>
-
-	</div>
-	<!-- Content / End -->
-
-
-	
-	<!-- Page Content / End -->
-
 </div>
 <!-- 960 Container / End -->
 

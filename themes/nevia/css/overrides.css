@@ -1,3 +1,7 @@
+.container.content-wrapper{
+  min-height: 1200px;
+}
+
 #logo a img{
   height: 27px;
   width: 130px;
@@ -13,4 +17,160 @@ ul.menu li{
 
 #logo-footer{
   width: auto;
+}
+
+.floated.sidebar{
+  /*position: relative;*/
+}
+
+span.reply ul li{
+  line-height: 21px;
+  padding: 0;
+}
+
+.comment-by a{
+  color: #333;
+}
+
+.comment-by a:hover{
+  color: #169FE6;
+}
+
+span.reply a{
+  color: #169FE6;
+}
+
+span.reply a:hover{
+  color: #888;
+}
+
+.custom-commentlist .indented{
+  margin:0;
+  /*padding-left: 50px;*/
+}
+
+.custom-commentlist .indented .mee{
+  /*margin:0;*/
+  margin-left: 50px;
+}
+
+.custom-commentlist .indented .custom-comment{
+  /*padding-left: 100px;*/
+}
+
+.custom-commentlist .indented .comment-des{
+  /*padding-left: -100px;*/
+}
+
+.custom-commentlist .indented .arrow-comment{
+  /*margin-left: 0;*/
+}
+
+.custom-commentlist .custom-comment-wrapper{
+  /*margin-bottom: 25px;*/
+  /*margin-top: 0;*/
+}
+
+.custom-commentlist .comment-des{
+  float: right;
+  margin: 0;
+  margin-bottom: 20px;
+  /*width: auto;*/
+  /*float: none;*/
+  
+  /*width: auto;*/
+  /*margin-left: 80px;*/
+}
+
+.avatar img{
+  width: 60px;
+  height: 60px;
+}
+
+div.error,
+div.warning{
+  background-image: none;
+}
+
+.comment-by span.reply a{
+  float: none;
+}
+
+.grippie{
+  display: none;
+}
+
+#edit-actions{
+  min-height: 38px
+}
+
+input[type="submit"]{
+  margin-right: 10px;
+}
+
+/*ul li ul li #current{*/
+/*  background: #fff;*/
+/*}*/
+
+select{
+  padding: 8px 9px;
+}
+
+/* drupal tabs */
+/*ul.tabs li a{*/
+/*  padding: 5px 10px;*/
+/*  */
+/*}*/
+
+.notification.success.tabs{
+  background: #fafafa;
+  /*background: transparent;*/
+  border: none;
+  color: #ccc;
+}
+
+.notification.success.tabs .close{
+  color: #ccc;
+}
+
+.notification.success.tabs .button{
+  margin: 3px 5px 3px;
+}
+
+
+.form-item .description{
+  /*color: #169FE6;*/
+}
+
+fieldset{
+  background-color: #fcfcfc;
+	border: 1px solid #e0e0e0;
+  margin: 0;
+	padding: 0 20px;
+	-webkit-box-shadow:  0px 2px 0px 0px rgba(0, 0, 0, 0.03);
+	box-shadow:  0px 2px 0px 0px rgba(0, 0, 0, 0.03);
+}
+
+fieldset .fieldset-wrapper{
+  margin: 0 0 20px
+}
+
+fieldset legend,
+fieldset legend span{
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+div.user-picture{
+  margin-top: 15px;
+}
+
+html.js fieldset.collapsed{
+  border-width: 1px;
+}
+
+.form-item input.error, .form-item textarea.error, .form-item select.error{
+  background-color: #FFF8F8;
+  border: 1px solid red;
+  
 }
