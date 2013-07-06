@@ -110,6 +110,13 @@
 <!-- 960 Container -->
 <div class="container content-wrapper floated">  
 	<div class="eleven floated left">
+    <?php if ($tabs && !empty($tabs['#primary'])): ?>
+      <div class="notification success tabs closeable" id="notification_1">
+        <!--<p>Nevia includes the popular Font Awesome &amp; Glyphicons sets with over 360 Icons!</p>-->
+        <!--<i class="icon-tasks"></i> --><?php print render($tabs); ?>
+      <a href="#" class="close"><i class="icon-remove"></i></a></div>
+    <?php endif; ?>
+    
     <?php if ($messages): ?>
       <!--<div class="notification notice closeable" style="margin: 40px 0 0px 0;">-->
         <?php print $messages; ?>
@@ -122,14 +129,6 @@
       <!--<h3 class="margin-reset">haha</h3>-->
       <!--<p class="margin">test</p>-->
       
-      <?php if ($tabs && !empty($tabs['#primary'])): ?>
-        <div style="margin: 0px 0px 40px; display: block;" class="notification success tabs closeable" id="notification_1">
-          <!--<p>Nevia includes the popular Font Awesome &amp; Glyphicons sets with over 360 Icons!</p>-->
-          <!--<i class="icon-tasks"></i> --><?php print render($tabs); ?>
-        <a href="#" class="close"><i class="icon-remove"></i></a></div>
-        
-      <?php endif; ?>
-      <!--<div class="line"></div>-->
      
       <?php print render($page['content']); ?>
     </section>
@@ -137,71 +136,14 @@
     <div class="clearfix"></div>
 	</div>
   
-  <div class="four floated sidebar right">
-		<aside class="sidebar">
-
-			<!-- Search -->
-			<nav class="widget-search">
-				<form action="404-page.html" method="get">
-					<button class="search-btn-widget"></button>
-					<input class="search-field" type="text" onblur="if(this.value=='')this.value='Search';" onfocus="if(this.value=='Search')this.value='';" value="Search" />
-				</form>
-			</nav>
-			<div class="clearfix"></div>
-
-			<!-- Categories -->
-			<nav class="widget">
-				<h4>Categories</h4>
-				<ul class="categories">
-					<li><a href="#">Business</a></li>
-					<li><a href="#">Entertainment</a></li>
-					<li><a href="#">News & Politics</a></li>
-					<li><a href="#">Social Media</a></li>
-					<li><a href="#">Technology</a></li>
-				</ul>
-			</nav>
-
-			<!-- Tags -->
-			<div class="widget">
-				<h4>Tags</h4>
-				<nav class="tags">
-					<a href="#">Mountains</a>
-					<a href="#">Winter Sports</a>
-					<a href="#">Boating</a>
-					<a href="#">Recreation</a>
-					<a href="#">Skiing</a>
-					<a href="#">Tourism</a>
-					<a href="#">Nature</a>
-					<a href="#">Alps</a>
-				</nav>
-			</div>
-
-			<!-- Archives -->
-			<nav class="widget">
-				<h4>Archives</h4>
-				<ul class="categories">
-					<li><a href="#">October 2012</a></li>
-					<li><a href="#">November 2012</a></li>
-					<li><a href="#">December 2012</a></li>
-				</ul>
-			</nav>
-
-			<!-- Tweets-->
-			<div class="widget">
-				<h4>Everybody loves Dota 2</h4>
-				<ul id="twitter-blog"></ul>
-					<script type="text/javascript">
-            jQuery(document).ready(function($){
-              $.getJSON('/twitter.php?url='+encodeURIComponent('statuses/user_timeline.json?screen_name=dota2&count=5'), function(tweets){
-              $("#twitter-blog").html(tz_format_twitter(tweets));
-            }); });
-          </script>
-				<div class="clearfix"></div>
-			</div>
-
-
-		</aside>
-	</div>
+  <?php if ($page['sidebar']): ?>
+    <div class="four floated sidebar right">
+      <aside class="sidebar">
+        <?php print render($page['sidebar']); ?>
+      </aside>
+    </div>
+  <?php endif; ?>
+  
 </div>
 <!-- 960 Container / End -->
 

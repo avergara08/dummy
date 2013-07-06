@@ -1,15 +1,17 @@
 <?php
-//var_dump($node);
+unset($content['links']['#attributes']['class']);
+unset($content['links']['node']['#links']['node-readmore']);
 
-$timestamp = $node->created;
-
+foreach($content['links']['comment']['#links'] as $k => $link){
+  $content['links']['comment']['#links'][$k]['attributes']['class'] = 'button color';
+}
 ?>
 
-<article class="post" style = "margin-top: 0;">
+<article class="post">
   <?php if($display_submitted): ?>
     <section class="date">
-      <span class="day"><?php print date('d', $timestamp); ?></span>
-      <span class="month"><?php print date('M', $timestamp); ?></span>
+      <span class="day"><?php print $day_posted; ?></span>
+      <span class="month"><?php print $month_posted; ?></span>
     </section>
   <?php endif; ?>
   
@@ -29,11 +31,27 @@ $timestamp = $node->created;
       hide($content['links']);
       print render($content);
     ?>
+    
+     <?php
+      // Remove the "Add new comment" link on the teaser page or if the comment
+      // form is being displayed on the same page.
+      if ($teaser || !empty($content['comments']['comment_form'])) {
+        unset($content['links']['comment']['#links']['comment-add']);
+      }
+      // Only display the wrapper div if there are links.
+      $links = render($content['links']);
+      if ($links):
+    ?>
+      <div class="link-wrapper">
+        <?php print $links; ?>
+      </div>
+    <?php endif; ?>
+  
   </section>
 </article>
 
-
-<div class="line"></div>
 <?php print render($content['comments']); ?>
 
 <div class="clearfix"></div>
+
+<!--<div class="line"></div>-->

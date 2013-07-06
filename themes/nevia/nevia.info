@@ -22,3 +22,6 @@ scripts[] = scripts/jquery.fancybox.min.js
 scripts[] = scripts/jquery.layerslider.min.js
 ;scripts[] = scripts/jquery.shop.js
 scripts[] = scripts/custom.js
+
+regions[content] = Content
+regions[sidebar] = Sidebar

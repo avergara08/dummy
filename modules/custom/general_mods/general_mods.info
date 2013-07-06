@@ -1,0 +1,4 @@
+name = "General mods"
+description = "General drupal modifications"
+package = Aaron
+core = 7.x

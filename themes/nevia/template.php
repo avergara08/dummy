@@ -134,6 +134,8 @@ function nevia_generate_nested_list_array($rows, $already_deep = false){
     '206' => 'home', // home
     '247' => 'user', // my profile
     '317' => 'off', // logout
+    '336' => 'envelope', // contact
+    '208' => 'pencil', // blog
   );
   
   foreach($rows as $k => $row){
@@ -182,23 +184,7 @@ function nevia_links__system_main_menu($variables){
   $list_array = nevia_generate_nested_list_array($main_menu);
   $menu_item_list = array('items' => $list_array, 'attributes' => array('class' => 'menu', 'id' => 'responsive'));
   $output = theme('item_list', $menu_item_list);
-  //dsm($main_menu);
-  return $output;
-}
-
-function nevia_username($variables) {
-  if (isset($variables['link_path'])) {
-    // We have a link path, so we should generate a link using l().
-    // Additional classes may be added as array elements like
-    // $variables['link_options']['attributes']['class'][] = 'myclass';
-    $output = l($variables['name'] . $variables['extra'], $variables['link_path'], $variables['link_options']);
-  }
-  else {
-    // Modules may have added important attributes so they must be included
-    // in the output. Additional classes may be added as array elements like
-    // $variables['attributes_array']['class'][] = 'myclass';
-    $output = $variables['name'] . $variables['extra'];
-  }
+  
   return $output;
 }
 
@@ -354,5 +340,64 @@ function nevia_filter_tips($variables) {
     }
   }
 
+  return $output;
+}
+
+function nevia_menu_tree($variables) {
+  return '<ul class="categories">' . $variables['tree'] . '</ul>';
+}
+
+function nevia_preprocess_node(&$vars){
+  $node = $vars['node'];
+  $timestamp  = $node->created;
+  $vars['day_posted'] = date('d', $timestamp);
+  $vars['month_posted'] = date('M', $timestamp);
+  
+  $vars['title'] = l($vars['title'], 'node/' . $node->nid);
+  
+  // alter $name, and create variables for author details
+  //nevia_author_name($vars);
+}
+
+function nevia_author_name(&$variables) {
+  $node = $variables['node'];
+  $author = user_load($node->uid);
+ 
+  $first_name = isset($author->field_first_name['und'][0]['safe']) ? $author->field_first_name['und'][0]['safe'] : '';
+  $last_name = isset($author->field_last_name['und'][0]['safe']) ? $author->field_last_name['und'][0]['safe'] : '';
+  $name = $author->name;
+  
+  if($first_name)
+    $name = $first_name . ($last_name ? ' ' . $last_name : '');
+  
+  if (isset($variables['link_path']))
+    $variables['name'] = l($name, $variables['link_path'], $variables['link_options']);
+  else
+    $variables['name'] = $name;
+  
+  
+}
+
+function nevia_username($variables) {
+  //dsm($variables);
+  $user = user_load($variables['uid']);
+  $first_name = isset($user->field_first_name['und'][0]['safe_value']) ? $user->field_first_name['und'][0]['safe_value'] : '';
+  $last_name = isset($user->field_last_name['und'][0]['safe_value']) ? $user->field_last_name['und'][0]['safe_value'] : '';
+  $name = $user->name;
+  if($first_name)
+    $name = $first_name . ($last_name ? ' ' . $last_name : '');
+    
+  if (isset($variables['link_path'])) {
+    // We have a link path, so we should generate a link using l().
+    // Additional classes may be added as array elements like
+    // $variables['link_options']['attributes']['class'][] = 'myclass';
+    $output = l($name . $variables['extra'], $variables['link_path'], $variables['link_options']);
+  }
+  else {
+    // Modules may have added important attributes so they must be included
+    // in the output. Additional classes may be added as array elements like
+    // $variables['attributes_array']['class'][] = 'myclass';
+    $output = $name . $variables['extra'];
+  }
   return $output;
 }

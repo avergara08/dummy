@@ -127,6 +127,8 @@ select{
   /*background: transparent;*/
   border: none;
   color: #ccc;
+  margin-bottom: 0;
+  padding: 5px;
 }
 
 .notification.success.tabs .close{
@@ -169,8 +171,36 @@ html.js fieldset.collapsed{
   border-width: 1px;
 }
 
+html.js input.form-autocomplete{
+  background-position: 100% -35px;
+}
+
+html.js input.form-autocomplete.throbbing{
+  background-position: 100% -18px;
+}
+
 .form-item input.error, .form-item textarea.error, .form-item select.error{
   background-color: #FFF8F8;
   border: 1px solid red;
   
+}
+
+ul li.leaf{
+  list-style: none;
+}
+
+li.expanded, li.collapsed, li.leaf{
+  padding: 0;
+}
+
+/*.page-user #block-system-main{*/
+/*  display: none;*/
+/*}*/
+
+.sidebar{
+  padding-top: 20px;
+}
+
+.page-content{
+  padding-top: 0;
 }

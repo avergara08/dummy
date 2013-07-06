@@ -1,0 +1,5 @@
+<?php
+
+function general_mods_install() {
+  db_query("UPDATE {system} SET weight = 200 WHERE name = 'general_mods'");
+}

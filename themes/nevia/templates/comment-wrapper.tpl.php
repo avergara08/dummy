@@ -38,32 +38,32 @@
 
 $comment_count = count(element_children($content['comments'])) - 1;
 ?>
-<section class="comments-sec <?php print $classes; ?>"<?php print $attributes; ?>>
-  <?php if ($content['comments'] && $node->type != 'forum'): ?>
-    <?php print render($title_prefix); ?>
-    <h3>Comments <span class="comments-amount">(<?php print $comment_count; ?>)</span></h3>
-     <?php print render($title_suffix); ?>
-  <?php endif; ?>
-  
-  <div class="clearfix"></div>
-  
-  <section class="comments-sec">
-    <div class="custom-commentlist">
-      <?php print render($content['comments']); ?>
-    </div>
+<?php if($comment_count > 0): ?>
+  <div class="line"></div>
+  <section class="comments-sec <?php print $classes; ?>"<?php print $attributes; ?>>
+    <?php if ($content['comments'] && $node->type != 'forum'): ?>
+      <?php print render($title_prefix); ?>
+      <h3>Comments <span class="comments-amount">(<?php print $comment_count; ?>)</span></h3>
+       <?php print render($title_suffix); ?>
+    <?php endif; ?>
+    
+    <section class="comments-sec">
+      <div class="custom-commentlist">
+        <?php print render($content['comments']); ?>
+      </div>
+    </section>
   </section>
   
   <div class="clearfix"></div>
-  
-  
-  <?php if ($content['comment_form']): ?>
-    <div class="line"></div>
-  
-    <section class="comments-sec">
-			<h3><?php print t('Add new comment'); ?></h3>
-      <?php print render($content['comment_form']); ?>
+<?php endif; ?>
 
-		</section>
-    
-  <?php endif; ?>
-</section>
+<?php if ($content['comment_form']): ?>
+   <div class="line"></div>
+ 
+   <section class="comments-sec">
+     <h3><?php print t('Add new comment'); ?></h3>
+     <?php print render($content['comment_form']); ?>
+
+   </section>
+   
+ <?php endif; ?>
