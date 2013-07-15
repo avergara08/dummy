@@ -4,7 +4,7 @@ function general_mods_init() {
 	global $user;
 	if(arg(0) == 'node') {
 		$node = menu_get_object();
-		if($node && $user->uid != $node->uid && !user_access('access_all_user_blogs')){
+		if($node && $node->type == 'blog' && $user->uid != $node->uid && !user_access('access_all_user_blogs')){
 			drupal_access_denied();
 			module_invoke_all('exit');
 			exit();
