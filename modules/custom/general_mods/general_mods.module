@@ -5,19 +5,27 @@ function general_mods_init() {
 	if(arg(0) == 'node') {
 		$node = menu_get_object();
 		if($node && $node->type == 'blog' && $user->uid != $node->uid && !user_access('access_all_user_blogs')){
-			drupal_access_denied();
-			module_invoke_all('exit');
-			exit();
+			_general_mods_custom_access_denied();
 		}
 	}
 	
 	if(arg(0) == 'blog'){
 		$blog_owner_uid = arg(1);
 		if($user->uid != $blog_owner_uid && !user_access('access_all_user_blogs')){
-			drupal_access_denied();
-			module_invoke_all('exit');
-			exit();
+			_general_mods_custom_access_denied();
 		}
+	}
+}
+
+function _general_mods_custom_access_denied(){
+	global $user;
+	if($user->uid){
+		drupal_access_denied();
+		module_invoke_all('exit');
+		exit();
+	}else{
+		drupal_set_message('Please login first to access this page.', 'warning');
+		drupal_goto('user', array('query' => drupal_get_destination()));
 	}
 }
 
