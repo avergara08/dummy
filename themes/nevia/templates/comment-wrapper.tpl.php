@@ -43,6 +43,7 @@ $comment_count = count(element_children($content['comments'])) - 1;
   <section class="comments-sec <?php print $classes; ?>"<?php print $attributes; ?>>
     <?php if ($content['comments'] && $node->type != 'forum'): ?>
       <?php print render($title_prefix); ?>
+      <a name="comments"></a>
       <h3>Comments <span class="comments-amount">(<?php print $comment_count; ?>)</span></h3>
        <?php print render($title_suffix); ?>
     <?php endif; ?>
@@ -58,12 +59,11 @@ $comment_count = count(element_children($content['comments'])) - 1;
 <?php endif; ?>
 
 <?php if ($content['comment_form']): ?>
-   <div class="line"></div>
- 
-   <section class="comments-sec">
-     <h3><?php print t('Add new comment'); ?></h3>
-     <?php print render($content['comment_form']); ?>
-
-   </section>
+  <div class="line"></div>
+  <section class="comments-sec">
+    <h3><?php print t('Add new comment'); ?></h3>
+    <?php print render($content['comment_form']); ?>
+  
+  </section>
    
- <?php endif; ?>
+<?php endif; ?>

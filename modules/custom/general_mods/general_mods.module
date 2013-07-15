@@ -1,5 +1,35 @@
 <?php
 
+function general_mods_init() {
+	global $user;
+	if(arg(0) == 'node') {
+		$node = menu_get_object();
+		if($node && $user->uid != $node->uid && !user_access('access_all_user_blogs')){
+			drupal_access_denied();
+			module_invoke_all('exit');
+			exit();
+		}
+	}
+	
+	if(arg(0) == 'blog'){
+		$blog_owner_uid = arg(1);
+		if($user->uid != $blog_owner_uid && !user_access('access_all_user_blogs')){
+			drupal_access_denied();
+			module_invoke_all('exit');
+			exit();
+		}
+	}
+}
+
+function general_mods_permission() {
+  return array(
+    'access_all_user_blogs' => array(
+      'title' => t('Access all user blogs'),
+      'description' => t('Access all user blogs'),
+    ),
+  );
+}
+//
 //function general_mods_menu_alter(&$items) {
 //	$path = 'blog/%user_uid_optional';
 //	$orig_page_callback = $items[$path]['page callback'];
@@ -43,11 +73,63 @@ function general_mods_node_view_alter(&$build) {
 	}
 }
 
-function general_mods_username_alter(&$name, $account){
-	//dsm($account);
-	$account = user_load($account->uid);
-	$first_name = isset($account->field_first_name['und'][0]['safe_value']) ? $account->field_first_name['und'][0]['safe_value'] : '';
-  $last_name = isset($account->field_last_name['und'][0]['safe_value']) ? $account->field_last_name['und'][0]['safe_value'] : '';
-  if($first_name)
-		$name = $first_name . ($last_name ? ' ' . $last_name : '');
+//function general_mods_username_alter(&$name, $account){
+//	//dsm($account);
+//	$account = user_load($account->uid);
+//	$first_name = isset($account->field_first_name['und'][0]['safe_value']) ? $account->field_first_name['und'][0]['safe_value'] : '';
+//  $last_name = isset($account->field_last_name['und'][0]['safe_value']) ? $account->field_last_name['und'][0]['safe_value'] : '';
+//  if($first_name)
+//		$name = $first_name . ($last_name ? ' ' . $last_name : '');
+//}
+
+function general_mods_form_alter(&$form, &$form_state, $form_id) {
+	//dsm($form_id);
+}
+
+function general_mods_preprocess_page(&$variables) {
+	global $user;
+	$hide_tabs = true;
+	if((arg(0) == 'blog' || arg(0) == 'user') && is_numeric(arg(1))) {
+		$blog_owner = user_load(arg(1));
+		$full_name = theme('username', array('account' => $blog_owner));
+		$page_title = strip_tags($full_name);
+		if(arg(0) == 'blog'){
+			$page_title .= ' \'s blog';
+			$breadcrumbs = drupal_get_breadcrumb();
+			if($breadcrumbs)
+				$breadcrumbs = array($breadcrumbs[0]);
+			$breadcrumbs[] = $full_name;
+			drupal_set_breadcrumb($breadcrumbs);
+		}
+		
+		drupal_set_title($page_title);
+	}
+	
+	if(arg(0) == 'node'){
+		$node = menu_get_object();
+		if($node) {
+			if($node->type == 'blog') {
+				$full_name = theme('username', array('account' => $node));
+				$full_name_plain = strip_tags($full_name);
+				$page_title = $full_name_plain . ' \'s blog';
+				drupal_set_title($page_title . ' <span>/ '. $node->title .'</span>', PASS_THROUGH);
+				//$node->title = 'ss';
+				
+				$breadcrumbs = drupal_get_breadcrumb();
+				if($breadcrumbs)
+					$breadcrumbs = array($breadcrumbs[0]);
+				$breadcrumbs[] = l($full_name_plain . ' \'s blog', 'blog/' . $node->uid);
+				$breadcrumbs[] = $node->title;
+				//$breadcrumbs = array('x');
+				drupal_set_breadcrumb($breadcrumbs);
+				//dsm($breadcrumbs);
+				
+				if($node->uid == $user->uid)
+					$hide_tabs = false;
+			}
+		}
+	}
+	
+	if($hide_tabs)
+		$variables['tabs'] = '';
 }

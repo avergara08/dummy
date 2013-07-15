@@ -54,7 +54,9 @@ function nevia_menu_local_tasks(&$variables) {
 function nevia_breadcrumb($variables) {
   $breadcrumb = $variables['breadcrumb'];
   if (!empty($breadcrumb)) {
-    $breadcrumb[] = drupal_get_title();
+    $node = menu_get_object();
+    if(!$node || $node->type != 'blog')
+      $breadcrumb[] = drupal_get_title();
     $output = '<nav id="breadcrumbs"><ul>';
     // filler
     $output .= '<li></li>';
@@ -400,4 +402,18 @@ function nevia_username($variables) {
     $output = $name . $variables['extra'];
   }
   return $output;
+}
+
+function nevia_preprocess_user_profile(&$variables) {
+  $user_viewed = menu_get_object('user');
+  
+  $user_profile = $variables['user_profile'];
+  //dsm($variables);
+  
+  $full_name = theme('username', array('account' => $user_viewed));
+  //$variables['blog_link'] = isset($user_profile['summary']['blog']['#markup']) ? l('View ' . strip_tags($full_name) . "'s Blog", 'user/' . $user_viewed->uid . '/blog') : '';
+  $variables['blog_link'] = isset($user_profile['summary']['blog']['#markup']) ? $user_profile['summary']['blog']['#markup'] : '';
+  $variables['full_name'] = $full_name;
+  $user_info = '';
+  
 }

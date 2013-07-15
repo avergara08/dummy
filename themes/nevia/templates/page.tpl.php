@@ -47,10 +47,10 @@
 
 			<!-- Search -->
 			<nav class="top-search">
-				<form action="404-page.html" method="get">
+				<!--<form action="404-page.html" method="get">-->
 					<button class="search-btn"></button>
 					<input class="search-field" type="text" onblur="if(this.value=='')this.value='Search';" onfocus="if(this.value=='Search')this.value='';" value="Search" />
-				</form>
+				<!--</form>-->
 			</nav>
 
 		</div>
@@ -110,7 +110,7 @@
 <!-- 960 Container -->
 <div class="container content-wrapper floated">  
 	<div class="eleven floated left">
-    <?php if ($tabs && !empty($tabs['#primary'])): ?>
+    <?php if (isset($tabs) && !empty($tabs['#primary'])): ?>
       <div class="notification success tabs closeable" id="notification_1">
         <!--<p>Nevia includes the popular Font Awesome &amp; Glyphicons sets with over 360 Icons!</p>-->
         <!--<i class="icon-tasks"></i> --><?php print render($tabs); ?>
@@ -173,24 +173,24 @@
 		<div class="four columns">
 			<h4>Contact Details</h4>
 			<ul class="contact-details-alt">
-				<li><i class="halflings white map-marker"></i> <p><strong>Address:</strong> 123. Asawa ni Marie. Araw gabi. Walang panty.</p></li>
-				<li><i class="halflings white user"></i> <p><strong>Phone:</strong> +48 880 440 110</p></li>
-				<li><i class="halflings white envelope"></i> <p><strong>Email:</strong> <a href="#">mail@example.com</a></p></li>
+				<li><i class="halflings white map-marker"></i> <p><strong>Address:</strong> Mataas na Lupa, Lipa City, Batangas</p></li>
+				<li><i class="halflings white user"></i> <p><strong>Phone:</strong> +63 917 1234567</p></li>
+				<li><i class="halflings white envelope"></i> <p><strong>Email:</strong><!-- <a href="#">mail@example.com</a>--></p></li>
 			</ul>
 		</div>
 
 		<!-- Photo Stream -->
 		<div class="four columns">
-			<h4>Photo Stream</h4>
+			<h4>The International 2012</h4>
 			<div class="flickr-widget">
-				<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=6&amp;display=latest&amp;size=s&amp;layout=x&amp;source=user&amp;user=72179079@N00"></script>
+				<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=6&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=84574136@N06"></script>
 				<div class="clearfix"></div>
 			</div>
 		</div>
 
 		<!-- Twitter -->
 		<div class="four columns">
-			<h4>Twitter</h4>
+			<h4>Dota 2</h4>
 			<ul id="twitter"></ul>
 				<script type="text/javascript">
 					jQuery(document).ready(function($){
@@ -217,7 +217,7 @@
 		<!-- Copyrights -->
 		<div class="eight columns">
 			<div class="copyright">
-				© Copyright 2013 by <a href="#">Nevia</a>. All Rights Reserved.
+				© Copyright 2013 by <a href="#">pewpewpinas.com</a>. All Rights Reserved.
 			</div>
 		</div>
 
@@ -227,7 +227,7 @@
 				<ul>
 					<li><a href="#">FAQ's</a></li>
 					<li><a href="#">Sitemap</a></li>
-					<li><a href="#">Contact</a></li>
+					<li><a href="contact">Contact</a></li>
 				</ul>
 			</nav>
 		</div>

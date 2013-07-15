@@ -1,5 +1,5 @@
 .container.content-wrapper{
-  min-height: 1200px;
+  min-height: 600px;
 }
 
 #logo a img{
@@ -148,6 +148,7 @@ fieldset{
   background-color: #fcfcfc;
 	border: 1px solid #e0e0e0;
   margin: 0;
+  margin-bottom: 10px;
 	padding: 0 20px;
 	-webkit-box-shadow:  0px 2px 0px 0px rgba(0, 0, 0, 0.03);
 	box-shadow:  0px 2px 0px 0px rgba(0, 0, 0, 0.03);
@@ -203,4 +204,31 @@ li.expanded, li.collapsed, li.leaf{
 
 .page-content{
   padding-top: 0;
+}
+
+.large-notice .user-picture{
+  float: right;
+}
+
+.large-notice .profile{
+  clear: none;
+  /*width: 50%;*/
+}
+
+/*.large-notice .profile .field .field-label,*/
+/*.large-notice .profile .field-name-field-first-name,*/
+/*.large-notice .profile .field-name-field-last-name{*/
+/*  display: none;*/
+/*}*/
+
+#breadcrumbs ul li{
+  margin-left: 9px;
+}
+
+.sidebar li a.active{
+  color: inherit;
+}
+
+.container .page-content{
+  margin-bottom: 30px;
 }

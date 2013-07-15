@@ -1,10 +1,23 @@
 <?php
 unset($content['links']['#attributes']['class']);
 unset($content['links']['node']['#links']['node-readmore']);
-
+unset($content['links']['comment']['#links']['comment-new-comments']);
+//dsm($content['links']);
+if(isset($content['links']['blog'])){
+  $content['links']['blog']['#links']['blog_usernames_blog']['attributes']['class'] = 'button color';
+  $content['links']['blog']['#links']['blog_usernames_blog']['title'] = 'Back to ' . strip_tags($name) . ' \'s blog';
+}
 foreach($content['links']['comment']['#links'] as $k => $link){
   $content['links']['comment']['#links'][$k]['attributes']['class'] = 'button color';
 }
+
+$comment_label = '';
+if($comment_count)
+  $comment_label = 'With ' . $comment_count . ' comment' . ($comment_count > 1 ? 's' : '');
+else
+  $comment_label = 'No comments yet';
+
+$comment_link = l($comment_label, 'node/' . $node->nid, array('fragment' => 'comments'));
 ?>
 
 <article class="post">
@@ -21,8 +34,10 @@ foreach($content['links']['comment']['#links'] as $k => $link){
       <?php if($display_submitted): ?>
         <span><i class="halflings user"></i>By <?php print $name; ?></span>
       <?php endif; ?>
-      <span><i class="halflings tag"></i><a href="#">Boating</a>, <a href="#">Recreation</a></span>
-      <span><i class="halflings comments"></i>With <a href="#">12 Comments</a></span>
+      <span><i class="halflings tag"></i><a href="#">ENGL05</a><!--, <a href="#">Recreation</a>--></span>
+      <?php if($comment_link): ?>
+        <span><i class="halflings comments"></i><?php print $comment_link; ?></span>
+      <?php endif; ?>
     </header>
     
     <?php

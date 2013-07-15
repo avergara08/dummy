@@ -149,17 +149,17 @@
 		<div class="four columns">
 			<h4>Contact Details</h4>
 			<ul class="contact-details-alt">
-				<li><i class="halflings white map-marker"></i> <p><strong>Address:</strong>#123 Asawa ni Marie. Araw gabi. Walang pantry</p></li>
-				<li><i class="halflings white user"></i> <p><strong>Phone:</strong> +11 101 001 000</p></li>
-				<li><i class="halflings white envelope"></i> <p><strong>Email:</strong> <a href="#">spammers@haven.com</a></p></li>
+				<li><i class="halflings white map-marker"></i> <p><strong>Address:</strong> Mataas na Lupa, Lipa City, Batangas</p></li>
+				<li><i class="halflings white user"></i> <p><strong>Phone:</strong> +63 917 1234567</p></li>
+				<li><i class="halflings white envelope"></i> <p><strong>Email:</strong><!-- <a href="#">spammers@haven.com</a>--></p></li>
 			</ul>
 		</div>
 
 		<!-- Photo Stream -->
 		<div class="four columns">
-			<h4>Photo Stream</h4>
+			<h4>The International 2012</h4>
 			<div class="flickr-widget">
-				<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=6&amp;display=latest&amp;size=s&amp;layout=x&amp;source=user&amp;user=72179079@N00"></script>
+				<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=6&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=84574136@N06"></script>
 				<div class="clearfix"></div>
 			</div>
 		</div>
@@ -193,7 +193,7 @@
 		<!-- Copyrights -->
 		<div class="eight columns">
 			<div class="copyright">
-				&copy; Copyright 2013 by <a href="#">Nevia</a>. All Rights Reserved.
+				&copy; Copyright 2013 by <a href="#">pewpewpinas.com</a>. All Rights Reserved.
 			</div>
 		</div>
 
@@ -203,7 +203,7 @@
 				<ul>
 					<li><a href="#">FAQ's</a></li>
 					<li><a href="#">Sitemap</a></li>
-					<li><a href="#">Contact</a></li>
+					<li><a href="contact">Contact</a></li>
 				</ul>
 			</nav>
 		</div>
