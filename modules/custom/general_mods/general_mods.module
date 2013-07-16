@@ -91,7 +91,27 @@ function general_mods_node_view_alter(&$build) {
 //}
 
 function general_mods_form_alter(&$form, &$form_state, $form_id) {
-	//dsm($form_id);
+	if($form_id == 'user_profile_form'){
+		//dsm($form);
+		//$form['user-info-kuno'] = array(
+		//	'#type' => 'fieldset',
+		//	'#title' => t('User information'),
+		//	'#collapsible' => TRUE,
+		//	//'#collapsed' => TRUE,
+		//	//'#prefix' => '<br /><br />',
+		//);
+		//
+		//$form['user-info-kuno']['field_first_name'] = $form['field_first_name'];
+		//unset($form['field_firstname']);
+		if(isset($form['picture']))
+			$form['picture']['#weight'] = -50;
+		
+		if(isset($form['block']))
+			$form['block']['#weight'] = 50;
+		
+		if(isset($form['account']))
+			$form['account']['#prefix'] = '<br /><div class="line"></div><br />';
+	}
 }
 
 function general_mods_preprocess_page(&$variables) {
@@ -141,3 +161,11 @@ function general_mods_preprocess_page(&$variables) {
 	if($hide_tabs)
 		$variables['tabs'] = '';
 }
+//
+//function general_mods_preprocess_block(&$variables) {
+//	if(in_array($variables['id'], array(3,4))){
+//		$variables['elements']['#children'] = 'x';
+//		dsm('s');
+//		dsm($variables);
+//	}
+//}

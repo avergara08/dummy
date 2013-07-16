@@ -232,3 +232,8 @@ li.expanded, li.collapsed, li.leaf{
 .container .page-content{
   margin-bottom: 30px;
 }
+/*
+#block-user-new a[href="/kinasaw"],
+#block-user-online a[href="/kinasaw"]{
+  display: none;
+}*/
