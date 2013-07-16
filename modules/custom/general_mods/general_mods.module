@@ -91,6 +91,7 @@ function general_mods_node_view_alter(&$build) {
 //}
 
 function general_mods_form_alter(&$form, &$form_state, $form_id) {
+	global $user;
 	if($form_id == 'user_profile_form'){
 		//dsm($form);
 		//$form['user-info-kuno'] = array(
@@ -111,6 +112,11 @@ function general_mods_form_alter(&$form, &$form_state, $form_id) {
 		
 		if(isset($form['account']))
 			$form['account']['#prefix'] = '<br /><div class="line"></div><br />';
+	}else if($form_id == 'blog_node_form'){
+		$form['author']['#access'] = TRUE;
+		if($user->uid != 1)
+			$form['author']['name']['#disabled'] = TRUE;
+		//dsm($form);
 	}
 }
 

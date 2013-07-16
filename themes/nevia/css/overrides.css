@@ -210,6 +210,10 @@ li.expanded, li.collapsed, li.leaf{
   float: right;
 }
 
+.large-notice .user-picture img{
+  border-radius: 2px;
+}
+
 .large-notice .profile{
   clear: none;
   /*width: 50%;*/
