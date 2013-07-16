@@ -241,3 +241,7 @@ li.expanded, li.collapsed, li.leaf{
 #block-user-online a[href="/kinasaw"]{
   display: none;
 }*/
+
+.post-content .link-wrapper{
+  margin-top: 30px;
+}
