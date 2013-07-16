@@ -16,7 +16,7 @@ function general_mods_init() {
 		}
 	}
 	
-	if(arg(0) == 'taxonomy' && arg(1) == 'term')
+	if(arg(0) == 'taxonomy' && arg(1) == 'term' && arg(3) == '')
 		_general_mods_custom_access_denied();
 }
 
