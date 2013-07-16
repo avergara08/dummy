@@ -114,8 +114,10 @@ function general_mods_form_alter(&$form, &$form_state, $form_id) {
 			$form['account']['#prefix'] = '<br /><div class="line"></div><br />';
 	}else if($form_id == 'blog_node_form'){
 		$form['author']['#access'] = TRUE;
-		if($user->uid != 1)
+		if($user->uid != 1){
 			$form['author']['name']['#disabled'] = TRUE;
+			$form['author']['name']['#description'] = '';
+		}
 		//dsm($form);
 	}
 }
