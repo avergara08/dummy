@@ -4,8 +4,15 @@ function general_mods_init() {
 	global $user;
 	if(arg(0) == 'node') {
 		$node = menu_get_object();
-		if($node && $node->type == 'blog' && $user->uid != $node->uid && !user_access('access_all_user_blogs')){
-			_general_mods_custom_access_denied();
+		if($node && $node->type == 'blog'){
+			if($user->uid != $node->uid && !user_access('access_all_user_blogs'))
+				_general_mods_custom_access_denied();
+			
+			if($user->uid != $node->uid){
+				$user_name = theme('username', array('account' => $user));
+				$node_link = l($node->title, 'node/'.$node->nid);
+				watchdog('general_mods', 'User !name viewed the blog page !blog_page', array('!name' => $user_name, '!blog_page' => $node_link));
+			}
 		}
 	}
 	
