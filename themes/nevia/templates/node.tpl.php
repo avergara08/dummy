@@ -1,4 +1,15 @@
 <?php
+
+$tags = isset($node->field_blog_tags['und']) ? $node->field_blog_tags['und'] : array();
+$tags_arr = array();
+foreach($tags as $tag){
+  if(!isset($tag['taxonomy_term']))
+    $tag['taxonomy_term'] = taxonomy_term_load($tag['tid']);
+  $tags_arr[] = '<a href="#">'.$tag['taxonomy_term']->name.'</a>';
+}
+$tags_html = implode(', ', $tags_arr);
+
+unset($content['field_blog_tags']);
 unset($content['links']['#attributes']['class']);
 unset($content['links']['node']['#links']['node-readmore']);
 unset($content['links']['comment']['#links']['comment-new-comments']);
@@ -34,7 +45,11 @@ $comment_link = l($comment_label, 'node/' . $node->nid, array('fragment' => 'com
       <?php if($display_submitted): ?>
         <span><i class="halflings user"></i>By <?php print $name; ?></span>
       <?php endif; ?>
-      <span><i class="halflings tag"></i><a href="#">ENGL05</a><!--, <a href="#">Recreation</a>--></span>
+      
+      <?php if($tags_html): ?>
+      <span><i class="halflings tag"></i><?php print $tags_html; ?></span>
+      <?php endif; ?>
+      
       <?php if($comment_link): ?>
         <span><i class="halflings comments"></i><?php print $comment_link; ?></span>
       <?php endif; ?>

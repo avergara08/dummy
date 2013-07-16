@@ -245,3 +245,28 @@ li.expanded, li.collapsed, li.leaf{
 .post-content .link-wrapper{
   margin-top: 30px;
 }
+
+#autocomplete {
+  border: solid 1px #e0e0e0;
+  border-top: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+#autocomplete li{
+  background: #fafafa;
+  color: #808080;
+  padding: 5px;
+}
+
+#autocomplete li.selected{
+  background: #f5f5f5;
+}
+
+.vertical-tabs ul.vertical-tabs-list .selected strong{
+  color: #666666;
+}
+
+.vertical-tabs ul.vertical-tabs-list li.selected{
+  background: #fcfcfc;
+}
