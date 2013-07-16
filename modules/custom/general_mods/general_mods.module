@@ -15,6 +15,9 @@ function general_mods_init() {
 			_general_mods_custom_access_denied();
 		}
 	}
+	
+	if(arg(0) == 'taxonomy' && arg(1) == 'term')
+		_general_mods_custom_access_denied();
 }
 
 function general_mods_menu() {
