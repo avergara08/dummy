@@ -110,7 +110,7 @@
 <!-- 960 Container -->
 <div class="container content-wrapper floated">  
 	<div class="eleven floated left">
-    <?php if (isset($tabs) && !empty($tabs['#primary'])): ?>
+    <?php if (isset($tabs) && (isset($tabs['#access']) ? $tabs['#access'] : true) && !empty($tabs['#primary'])): ?>
       <div class="notification success tabs closeable" id="notification_1">
         <!--<p>Nevia includes the popular Font Awesome &amp; Glyphicons sets with over 360 Icons!</p>-->
         <!--<i class="icon-tasks"></i> --><?php print render($tabs); ?>

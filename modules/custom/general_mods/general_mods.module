@@ -264,8 +264,9 @@ function general_mods_preprocess_page(&$variables) {
 		}
 	}
 	
-	if($hide_tabs)
-		$variables['tabs'] = '';
+	if($hide_tabs && $user->uid != 1){
+		$variables['tabs']['#access'] = FALSE;
+	}
 }
 //
 //function general_mods_preprocess_block(&$variables) {
