@@ -194,7 +194,7 @@
 			<ul id="twitter"></ul>
 				<script type="text/javascript">
 					jQuery(document).ready(function($){
-						$.getJSON('/twitter.php?url='+encodeURIComponent('statuses/user_timeline.json?screen_name=dota2&count=2'), function(tweets){
+						$.getJSON('/custom/twitter?url='+encodeURIComponent('statuses/user_timeline.json?screen_name=dota2&count=2'), function(tweets){
 						$("#twitter").html(tz_format_twitter(tweets));
 					}); });
 				</script>
