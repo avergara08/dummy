@@ -1,12 +1,17 @@
 <?php
 
+// module permissions
+DEFINE('GENERAL_MODS_CREATE_OWN_BLOG', 'general_mods_create_blog');
+DEFINE('GENERAL_MODS_ACCESS_ALL_BLOGS', 'general_mods_access_all_user_blogs');
+DEFINE('GENERAL_MODS_ACCESS_OPEN_BLOGS', 'general_mods_access_open_blogs');
+
 function general_mods_init() {
 	global $user;
 	if(arg(0) == 'node') {
 		$node = menu_get_object();
 		if($node && $node->type == 'blog'){
-			if($user->uid != $node->uid && !user_access('access_all_user_blogs'))
-				_general_mods_custom_access_denied();
+			if($user->uid != $node->uid && !user_access(GENERAL_MODS_ACCESS_ALL_BLOGS))
+				_general_mods_deny_blog_access($node->uid);
 			
 			if($user->uid != $node->uid){
 				$user_name = theme('username', array('account' => $user));
@@ -18,116 +23,49 @@ function general_mods_init() {
 	
 	if(arg(0) == 'blog'){
 		$blog_owner_uid = arg(1);
-		if($user->uid != $blog_owner_uid && !user_access('access_all_user_blogs')){
-			_general_mods_custom_access_denied();
+		if($user->uid != $blog_owner_uid && !user_access(GENERAL_MODS_ACCESS_ALL_BLOGS)){
+			_general_mods_deny_blog_access($blog_owner_uid);
 		}
 	}
 	
-	if(arg(0) == 'taxonomy' && arg(1) == 'term' && arg(3) == '')
-		_general_mods_custom_access_denied();
+	if(arg(0) == 'taxonomy' && arg(1) == 'term' && arg(3) == '') {
+		if($user->uid != 1) {
+			drupal_access_denied();
+			module_invoke_all('exit');
+			exit();
+		}
+	}
 }
 
 function general_mods_menu() {
 	$items['custom/twitter'] = array(
 		'page callback' => 'general_mods_twitter',
-		//'page arguments' => array(2),
 		'access callback' => TRUE,
+		'file' => 'general_mods_twitter.inc',
 	);
 	
 	return $items;
 }
 
-function general_mods_twitter(){
-	/**
-	* Usage:
-	* Send the url you want to access url encoded in the url paramater, for example (This is with JS):
-	* /twitter-proxy.php?url='+encodeURIComponent('statuses/user_timeline.json?screen_name=MikeRogers0&count=2')
-	*/
-	 
-	// The tokens, keys and secrets from the app you created at https://dev.twitter.com/apps
-	$config = array(
-	'oauth_access_token' => '95842260-FYnc3Vbfy34InlBp4ODxw3swKamb1EPe4ocXIQrdm',
-	'oauth_access_token_secret' => 'svbCt38ipXpP9s9DOIDkG1rsDiEh9dyHa0Se0wRLIw',
-	'consumer_key' => 'rQtxFrJC0mTSE3e4i1ow',
-	'consumer_secret' => 'zjIFyVvQO1TZknOetoNXqjkZQxHANNdQp2qm38fHg',
-	'use_whitelist' => false, // If you want to only allow some requests to use this script.
-	'base_url' => 'http://api.twitter.com/1.1/'
-	);
-	
-	/*
-	* Ok, no more config should really be needed. Yay!
-	*/
-	 
-	// We'll get the URL from $_GET[]. Make sure the url is url encoded, for example encodeURIComponent('statuses/user_timeline.json?screen_name=MikeRogers0&count=10&include_rts=false&exclude_replies=true')
-	if(!isset($_GET['url'])){
-	die('No URL set');
-	}
-	 
-	$url = $_GET['url'];
-	 
-	 
-	if($config['use_whitelist'] && !isset($whitelist[$url])){
-	die('URL is not authorised');
-	}
-	 
-	// Figure out the URL parmaters
-	$url_parts = parse_url($url);
-	parse_str($url_parts['query'], $url_arguments);
-	 
-	$full_url = $config['base_url'].$url; // Url with the query on it.
-	$base_url = $config['base_url'].$url_parts['path']; // Url with the query.
-	 
-	// Set up the oauth Authorization array
-	$oauth = array(
-	'oauth_consumer_key' => $config['consumer_key'],
-	'oauth_nonce' => time(),
-	'oauth_signature_method' => 'HMAC-SHA1',
-	'oauth_token' => $config['oauth_access_token'],
-	'oauth_timestamp' => time(),
-	'oauth_version' => '1.0'
-	);
-	$base_info = buildBaseString($base_url, 'GET', array_merge($oauth, $url_arguments));
-	$composite_key = rawurlencode($config['consumer_secret']) . '&' . rawurlencode($config['oauth_access_token_secret']);
-	$oauth_signature = base64_encode(hash_hmac('sha1', $base_info, $composite_key, true));
-	$oauth['oauth_signature'] = $oauth_signature;
-	 
-	// Make Requests
-	$header = array(
-	buildAuthorizationHeader($oauth),
-	'Expect:'
-	);
-	$options = array(
-	CURLOPT_HTTPHEADER => $header,
-	//CURLOPT_POSTFIELDS => $postfields,
-	CURLOPT_HEADER => false,
-	CURLOPT_URL => $full_url,
-	CURLOPT_RETURNTRANSFER => true,
-	CURLOPT_SSL_VERIFYPEER => false
-	);
-	 
-	$feed = curl_init();
-	curl_setopt_array($feed, $options);
-	$result = curl_exec($feed);
-	$info = curl_getinfo($feed);
-	curl_close($feed);
-	 
-	// Send suitable headers to the end user.
-	if(isset($info['content_type']) && isset($info['size_download'])){
-	header('Content-Type: '.$info['content_type']);
-	header('Content-Length: '.$info['size_download']);
-	 
-	}
-	 
-	echo($result);
-}
-
-
-function _general_mods_custom_access_denied(){
+function _general_mods_deny_blog_access($blog_owner_uid = null){
 	global $user;
 	if($user->uid){
-		drupal_access_denied();
-		module_invoke_all('exit');
-		exit();
+		$allow = user_access(GENERAL_MODS_ACCESS_OPEN_BLOGS);
+		if($allow) {
+			$blog_owner = user_load($blog_owner_uid);
+			if(!$blog_owner)
+				return;
+			
+			$do_not_share = isset($blog_owner->data['general_mods_user_blog_privacy_setting']['value']) ? $blog_owner->data['general_mods_user_blog_privacy_setting']['value'] : 0;
+			$allow = !$do_not_share;
+			
+		}
+		
+		if(!$allow){
+			drupal_access_denied();
+			module_invoke_all('exit');
+			exit();
+		}
 	}else{
 		drupal_set_message('Please login first to access this page.', 'warning');
 		drupal_goto('user', array('query' => drupal_get_destination()));
@@ -136,47 +74,26 @@ function _general_mods_custom_access_denied(){
 
 function general_mods_permission() {
   return array(
-    'access_all_user_blogs' => array(
-      'title' => t('Access all user blogs'),
+		GENERAL_MODS_CREATE_OWN_BLOG => array(
+      'title' => t('Create own blog'),
+      'description' => t('Create own blog'),
+    ),
+    GENERAL_MODS_ACCESS_ALL_BLOGS => array(
+      'title' => t('Access ALL user blogs'),
       'description' => t('Access all user blogs'),
     ),
+		GENERAL_MODS_ACCESS_OPEN_BLOGS => array(
+      'title' => t('Access blogs shared by users'),
+      'description' => t('Access open blogs only'),
+    ),
   );
-}
-//
-//function general_mods_menu_alter(&$items) {
-//	$path = 'blog/%user_uid_optional';
-//	$orig_page_callback = $items[$path]['page callback'];
-//	$orig_page_arguments = $items[$path]['page arguments'];
-//	$items[$path]['page callback'] = '_general_mods_accept_usernames';
-//	$items[$path]['page arguments'] = array(1, $orig_page_callback, $orig_page_arguments);
-//}
-//
-//function _general_mods_accept_usernames($account, $orig_page_callback, $orig_page_arguments) {
-//	dsm($account);
-//}
-
-//function blog_page_user_access($account) {
-//  // The visitor must be able to access the site's content.
-//  // For a blog to 'exist' the user must either be able to
-//  // create new blog entries, or it must have existing posts.
-//  return $account->uid && user_access('access content') && (user_access('create blog content', $account) || _blog_post_exists($account));
-//}
-
-
-//$account = user_load(2);
-	//drupal_render(general_mods_page_user($account));
-function general_mods_node_view($node, $view_mode, $langcode) {
-	//dsm($view_mode);
-	//dsm($node);
-	//if($node->)
-	
 }
 
 function general_mods_node_view_alter(&$build) {
 	static $count = 0;
 	
 	$count++;
-	//dsm($count);
+	
 	$node = $build['#node'];
 	if($node->type == 'blog'){
 		// convert from teaser mode into full mode
@@ -186,44 +103,61 @@ function general_mods_node_view_alter(&$build) {
 	}
 }
 
-//function general_mods_username_alter(&$name, $account){
-//	//dsm($account);
-//	$account = user_load($account->uid);
-//	$first_name = isset($account->field_first_name['und'][0]['safe_value']) ? $account->field_first_name['und'][0]['safe_value'] : '';
-//  $last_name = isset($account->field_last_name['und'][0]['safe_value']) ? $account->field_last_name['und'][0]['safe_value'] : '';
-//  if($first_name)
-//		$name = $first_name . ($last_name ? ' ' . $last_name : '');
-//}
-
 function general_mods_form_alter(&$form, &$form_state, $form_id) {
 	global $user;
 	if($form_id == 'user_profile_form'){
-		//dsm($form);
-		//$form['user-info-kuno'] = array(
-		//	'#type' => 'fieldset',
-		//	'#title' => t('User information'),
-		//	'#collapsible' => TRUE,
-		//	//'#collapsed' => TRUE,
-		//	//'#prefix' => '<br /><br />',
-		//);
-		//
-		//$form['user-info-kuno']['field_first_name'] = $form['field_first_name'];
-		//unset($form['field_firstname']);
-		if(isset($form['picture']))
-			$form['picture']['#weight'] = -50;
+		$user_loaded = $form['#user'];
+		$collapsible_fields = array(
+			'picture',
+			'comment_notify_settings',
+			'contact',
+			'timezone',
+		);
 		
-		if(isset($form['block']))
-			$form['block']['#weight'] = 50;
+		foreach($collapsible_fields as $field_name) {
+			if(isset($form[$field_name])){
+				$form[$field_name]['#collapsible'] = TRUE;
+				$form[$field_name]['#collapsed'] = TRUE;
+				if($field_name == 'picture')
+					$form[$field_name]['#weight'] = -49;
+				else
+					$form[$field_name]['#weight'] = 50;
+			}
+		}
 		
-		if(isset($form['account']))
+		if(isset($form['account'])){
 			$form['account']['#prefix'] = '<br /><div class="line"></div><br />';
+		}
+		
+		$form['field_course']['#access'] = user_access(GENERAL_MODS_CREATE_OWN_BLOG);
+		$form['field_year']['#access'] = user_access(GENERAL_MODS_CREATE_OWN_BLOG);
+		
+		$form['general_mods_blog_settings'] = array(
+			'#type' => 'fieldset',
+			'#title' => t('Blog privacy settings'),
+			'#weight' => -50,
+			//'#description' => t('Customize email message sent to users when their page revision has been approved.') . $email_token_help,
+			'#access' => user_access(GENERAL_MODS_CREATE_OWN_BLOG),
+		);
+		
+		$form['general_mods_blog_settings']['general_mods_user_blog_privacy_setting'] = array(
+			'#type' => 'checkbox',
+			'#title' => 'Do not allow other students to see my posts',
+			'#description' => 'You will not be able to see other students\' posts as well if you check this option.<br />You can only change this setting <em>every 48 hours</em>.',
+			'#default_value' => isset($user_loaded->data['general_mods_user_blog_privacy_setting']['value']) ? $user_loaded->data['general_mods_user_blog_privacy_setting']['value'] : 0,			
+		);
+		
+		if(!user_access('administer users') && isset($user_loaded->data['general_mods_user_blog_privacy_setting']['last_changed'])) {
+			$privacy_last_changed = $user_loaded->data['general_mods_user_blog_privacy_setting']['last_changed'];
+			$form['general_mods_blog_settings']['general_mods_user_blog_privacy_setting']['#disabled'] = time() < strtotime('48 hours', $privacy_last_changed);
+		}
+		
 	}else if($form_id == 'blog_node_form'){
 		$form['author']['#access'] = TRUE;
 		if($user->uid != 1){
 			$form['author']['name']['#disabled'] = TRUE;
 			$form['author']['name']['#description'] = '';
 		}
-		//dsm($form);
 	}
 }
 
@@ -261,9 +195,7 @@ function general_mods_preprocess_page(&$variables) {
 					$breadcrumbs = array($breadcrumbs[0]);
 				$breadcrumbs[] = l($full_name_plain . ' \'s blog', 'blog/' . $node->uid);
 				$breadcrumbs[] = $node->title;
-				//$breadcrumbs = array('x');
 				drupal_set_breadcrumb($breadcrumbs);
-				//dsm($breadcrumbs);
 				
 				if($node->uid == $user->uid)
 					$hide_tabs = false;
@@ -279,35 +211,17 @@ function general_mods_preprocess_page(&$variables) {
 		$variables['tabs']['#access'] = FALSE;
 	}
 }
-//
-//function general_mods_preprocess_block(&$variables) {
-//	if(in_array($variables['id'], array(3,4))){
-//		$variables['elements']['#children'] = 'x';
-//		dsm('s');
-//		dsm($variables);
-//	}
-//}
 
-
-/**
-	* Code below from http://stackoverflow.com/questions/12916539/simplest-php-example-retrieving-user-timeline-with-twitter-api-version-1-1 by Rivers
-	* with a few modfications by Mike Rogers to support variables in the URL nicely
-	*/
-	 
-function buildBaseString($baseURI, $method, $params) {
-	$r = array();
-	ksort($params);
-	foreach($params as $key=>$value){
-	$r[] = "$key=" . rawurlencode($value);
+function general_mods_user_presave(&$edit, $account, $category) {
+	if(user_access(GENERAL_MODS_CREATE_OWN_BLOG)){
+		$general_mods_user_blog_privacy_setting = isset($edit['general_mods_user_blog_privacy_setting']) ? $edit['general_mods_user_blog_privacy_setting'] : 0;
+		$privacy_setting = array();
+		$privacy_setting['value'] = $general_mods_user_blog_privacy_setting;
+		if(user_access('administer users'))
+			$privacy_setting['last_changed'] = 0;
+		else if(!isset($edit['data']['general_mods_user_blog_privacy_setting']['value']) || $edit['data']['general_mods_user_blog_privacy_setting']['value'] != $general_mods_user_blog_privacy_setting)
+			$privacy_setting['last_changed'] = time();
+			
+		$edit['data']['general_mods_user_blog_privacy_setting'] = $privacy_setting;
 	}
-	return $method."&" . rawurlencode($baseURI) . '&' . rawurlencode(implode('&', $r));
-}
- 
-function buildAuthorizationHeader($oauth) {
-	$r = 'Authorization: OAuth ';
-	$values = array();
-	foreach($oauth as $key=>$value)
-	$values[] = "$key=\"" . rawurlencode($value) . "\"";
-	$r .= implode(', ', $values);
-	return $r;
 }

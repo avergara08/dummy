@@ -1,5 +1,8 @@
+body {
+  background: url(../images/bg/brushed_alu.png) repeat;
+}
 .container.content-wrapper{
-  min-height: 600px;
+  min-height: 700px;
 }
 
 #logo a img{
@@ -269,4 +272,9 @@ li.expanded, li.collapsed, li.leaf{
 
 .vertical-tabs ul.vertical-tabs-list li.selected{
   background: #fcfcfc;
+}
+
+label.option{
+  vertical-align: middle;
+  vertical-align: -3px;
 }
