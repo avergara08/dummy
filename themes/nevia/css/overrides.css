@@ -278,3 +278,35 @@ label.option{
   vertical-align: middle;
   vertical-align: -3px;
 }
+
+.field-type-image{
+  background: #FCFCFC;
+  border: solid 1px #ccc;
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.03);
+  padding: 0 8px;
+}
+
+.field-type-image .form-managed-file .form-file, .form-managed-file .form-submit[type="file"]{
+  margin-top: 5px;
+}
+
+.field-type-image .form-managed-file .form-file, .form-managed-file .form-submit{
+  margin-right: 5px;
+}
+
+.field-type-image strong{
+  color: #505050;
+}
+
+.field-type-image .form-managed-file .form-file, .form-managed-file .form-submit{
+  margin-top: 5px;
+}
+
+.form-managed-file{
+  padding: 5px;
+  padding-top: 0;
+}
+
+#wrapper img{
+  border-radius: 4px;
+}

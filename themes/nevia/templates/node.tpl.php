@@ -9,11 +9,15 @@ foreach($tags as $tag){
 }
 $tags_html = implode(', ', $tags_arr);
 
+$image_url = isset($node->field_blog_related_image['und'][0]['uri']) ? file_create_url($node->field_blog_related_image['und'][0]['uri']) : '';
+$image_thumb_url = isset($node->field_blog_related_image['und'][0]['uri']) ? image_style_url('nevia_large', $node->field_blog_related_image['und'][0]['uri']) : '';
+
 unset($content['field_blog_tags']);
+unset($content['field_blog_related_image']);
 unset($content['links']['#attributes']['class']);
 unset($content['links']['node']['#links']['node-readmore']);
 unset($content['links']['comment']['#links']['comment-new-comments']);
-//dsm($content['links']);
+
 if(isset($content['links']['blog'])){
   $content['links']['blog']['#links']['blog_usernames_blog']['attributes']['class'] = 'button color';
   $content['links']['blog']['#links']['blog_usernames_blog']['title'] = 'Back to ' . strip_tags($name) . ' \'s blog';
@@ -32,6 +36,12 @@ $comment_link = l($comment_label, 'node/' . $node->nid, array('fragment' => 'com
 ?>
 
 <article class="post">
+  <?php if($image_url): ?>
+    <figure class="post-img picture">
+      <a href="<?php print $image_url; ?>" rel="fancybox" title="<?php print strip_tags($title); ?>"><img src="<?php print $image_thumb_url; ?>" alt="" /></a>
+    </figure>
+  <?php endif; ?>
+
   <?php if($display_submitted): ?>
     <section class="date">
       <span class="day"><?php print $day_posted; ?></span>
