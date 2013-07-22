@@ -58,7 +58,8 @@ function _general_mods_deny_blog_access($blog_owner_uid = null){
 			
 			$do_not_share = isset($blog_owner->data['general_mods_user_blog_privacy_setting']['value']) ? $blog_owner->data['general_mods_user_blog_privacy_setting']['value'] : 0;
 			$allow = !$do_not_share;
-			
+			if(!$allow)
+				drupal_set_message('The owner chose to not share this blog. Wag kang epal. Now, begone!', 'error');
 		}
 		
 		if(!$allow){
