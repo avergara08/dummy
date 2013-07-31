@@ -23,7 +23,7 @@ function general_mods_init() {
 	
 	if(arg(0) == 'blog'){
 		$blog_owner_uid = arg(1);
-		if($user->uid != $blog_owner_uid && !user_access(GENERAL_MODS_ACCESS_ALL_BLOGS)){
+		if((empty($blog_owner_uid) || $user->uid != $blog_owner_uid) && !user_access(GENERAL_MODS_ACCESS_ALL_BLOGS)){
 			_general_mods_deny_blog_access($blog_owner_uid);
 		}
 	}
