@@ -139,6 +139,7 @@ function nevia_generate_nested_list_array($rows, $already_deep = false){
     '336' => 'envelope', // contact
     '208' => 'pencil', // blog
     '434' => 'book', // register
+    '528' => 'book', // register
   );
   
   foreach($rows as $k => $row){
