@@ -160,12 +160,15 @@ function general_mods_form_alter(&$form, &$form_state, $form_id) {
 		//	$form['general_mods_blog_settings']['general_mods_user_blog_privacy_setting']['#disabled'] = time() < strtotime('48 hours', $privacy_last_changed);
 		//}
 		
-	}else if($form_id == 'blog_node_form'){
+	} else if($form_id == 'blog_node_form') {
 		$form['author']['#access'] = TRUE;
 		if($user->uid != 1){
 			$form['author']['name']['#disabled'] = TRUE;
 			$form['author']['name']['#description'] = '';
 		}
+	} else if($form_id == 'user_register_form') {
+		// redirect to login page after registration
+		$form['#submit'][] = '_general_mods_redirect_after_registration';
 	}
 }
 
@@ -232,4 +235,8 @@ function general_mods_user_presave(&$edit, $account, $category) {
 			
 		$edit['data']['general_mods_user_blog_privacy_setting'] = $privacy_setting;
 	}
+}
+
+function _general_mods_redirect_after_registration($form, &$form_state) {
+	$form_state['redirect'] = 'user';
 }
