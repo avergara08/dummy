@@ -2,7 +2,7 @@ body {
   background: url(../images/bg/brushed_alu.png) repeat;
 }
 .container.content-wrapper{
-  min-height: 700px;
+  min-height: 500px;
 }
 
 #logo a img{
