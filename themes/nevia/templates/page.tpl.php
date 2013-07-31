@@ -170,7 +170,7 @@
       
       <!--<h4>Contact Details</h4>-->
 			<ul class="contact-details-alt">
-        <li><i class="halflings white bullhorn"></i> <p>A phrase said along with accompanying gesture - both hands miming rapid gunfire. Laser beams of course.</p></li>
+        <li><i class="halflings white bullhorn"></i> <p>A phrase said along with accompanying gesture - both hands miming rapid gunfire. Laser beams.. of course!</p></li>
         <li><i class="halflings white user"></i> <p><strong>Need a web developer?</strong> &nbsp;<a href="/contact">Contact us.</a></p></li>
 				<li><i class="halflings white map-marker"></i> <p><strong>Mataas na lupa,</strong> Lipa City, Batangas</p></li>
 				<!--<li><i class="halflings white user"></i> <p><strong>Phone:</strong> +63 917 1234567</p></li>-->
