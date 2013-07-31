@@ -215,7 +215,7 @@ function general_mods_preprocess_page(&$variables) {
 	}
 	
 	if(arg(0) == 'contact'){
-		drupal_set_message('If you have questions, bug findings, anything, let me know :)');
+		drupal_set_message('Inquiries, bug reports, suggestions, anything, let us know.');
 	}
 	
 	if($hide_tabs && $user->uid != 1){

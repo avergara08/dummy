@@ -40,7 +40,7 @@ $comment_link = l($comment_label, 'node/' . $node->nid, array('fragment' => 'com
 <article class="post">
   <?php if($image_url): ?>
     <figure class="post-img picture">
-      <a href="<?php print $image_url; ?>" rel="fancybox" title="<?php print strip_tags($title); ?>"><img src="<?php print $image_thumb_url; ?>" alt="" /></a>
+      <a href="<?php print $image_url; ?>" rel="fancybox" title="<?php print strip_tags($title); ?>"><img class="blog-large-image" src="<?php print $image_thumb_url; ?>" alt="" /></a>
     </figure>
   <?php endif; ?>
 

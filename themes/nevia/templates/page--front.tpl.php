@@ -144,27 +144,28 @@
 	<div class="container">
 
 		<!-- About -->
-		<div class="four columns">
+		<div class="five columns">
 			<img id="logo-footer" src="<?php print $theme_path; ?>/images/logo-footer.png" alt="" />
-			<p>"You can worship a rock for all I care. Just don't throw it at me."</p>
-			<p>Then I was like.. pew pew pew!</p>
-		</div>
-
-		<!-- Contact Details -->
-		<div class="four columns">
-			<h4>Contact Details</h4>
+			<!--<p>"You can worship a rock for all I care. Just don't throw it at me."</p>-->
+			<!--<p>Then I was like.. pew pew pew!</p>-->
+      
+      <!--<h4>Contact Details</h4>-->
 			<ul class="contact-details-alt">
-				<li><i class="halflings white map-marker"></i> <p><strong>Address:</strong> Mataas na Lupa, Lipa City, Batangas</p></li>
-				<li><i class="halflings white user"></i> <p><strong>Phone:</strong> +63 917 1234567</p></li>
-				<li><i class="halflings white envelope"></i> <p><strong>Email:</strong><!-- <a href="#">spammers@haven.com</a>--></p></li>
+        <li><i class="halflings white bullhorn"></i> <p>A phrase said along with accompanying gesture - both hands miming rapid gunfire. Laser beams of course.</p></li>
+        <li><i class="halflings white user"></i> <p><strong>Need a web developer?</strong> &nbsp;<a href="/contact">Contact us.</a></p></li>
+				<li><i class="halflings white map-marker"></i> <p><strong>Mataas na lupa,</strong> Lipa City, Batangas</p></li>
+				<!--<li><i class="halflings white user"></i> <p><strong>Phone:</strong> +63 917 1234567</p></li>-->
+				<li><i class="halflings white wrench"></i> <p><strong>Bugs?</strong> <a href="/contact">Kindly inform us via the contact page.</a></p></li>
+				<!--<li><i class="halflings white wrench"></i> <p>This is a portfolio site - in the future. Pages are still under construction.</p></li>-->
+				
 			</ul>
 		</div>
 
 		<!-- Photo Stream -->
-		<div class="four columns">
+		<div class="seven columns">
 			<h4>The International 2013</h4>
 			<div class="flickr-widget">
-				<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=6&amp;display=latest&amp;size=s&amp;layout=x&amp;source=user&amp;user=84574136@N06"></script>
+				<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=10&amp;display=latest&amp;size=s&amp;layout=x&amp;source=user&amp;user=84574136@N06"></script>
 				<div class="clearfix"></div>
 			</div>
 		</div>
@@ -175,7 +176,6 @@
 			<ul id="twitter"></ul>
 				<script type="text/javascript">
 					jQuery(document).ready(function($){
-						//$.getJSON('twitter.php?url='+encodeURIComponent('statuses/user_timeline.json?screen_name=dota2&count=2'), function(tweets){
 						$.getJSON('/custom/twitter?url='+encodeURIComponent('statuses/user_timeline.json?screen_name=dota2&count=2'), function(tweets){
 						$("#twitter").html(tz_format_twitter(tweets));
 					}); });
