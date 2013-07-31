@@ -68,36 +68,14 @@ function _general_mods_deny_blog_access($blog_owner_uid = null){
 		}
 	}
 
-	//
-	//
-	////if($user->uid){
-	//	$allow = user_access(GENERAL_MODS_ACCESS_OPEN_BLOGS);
-	//	$private_blog = 0;
-	//	if($allow) {
-	//		$blog_owner = user_load($blog_owner_uid);
-	//		if(!$blog_owner)
-	//			return;
-	//		
-	//		$private_blog = isset($blog_owner->data['general_mods_user_blog_privacy_setting']['value']) ? $blog_owner->data['general_mods_user_blog_privacy_setting']['value'] : 0;
-	//		if($private_blog && !user_is_anonymous())
-	//			drupal_set_message('The owner chose to not share this blog. Now, begone!', 'error');
-	//			
-	//		//$allow = !$do_not_share;
-	//		//if(!$allow)
-	//		//	drupal_set_message('The owner chose to not share this blog. Now, begone!', 'error');
-	//	}
-	//	
-	//	if($allow)
-	//	
-	//	if(!$allow){
-	//		drupal_access_denied();
-	//		module_invoke_all('exit');
-	//		exit();
-	//	}
-	////}else{
-	//	//drupal_set_message('Please login first to access this page.', 'warning');
-	//	//drupal_goto('user', array('query' => drupal_get_destination()));
-	////}
+	//$current_user_blog_privacy = isset($user->data['general_mods_user_blog_privacy_setting']['value']) ? $user->data['general_mods_user_blog_privacy_setting']['value'] : 0;
+	//if($current_user_blog_privacy) {
+	//	// this user does not share his blog, do not allow this user to see other blogs
+	//	drupal_set_message('You are not allowed to access other blogs because your own blog is private. Now, begone!', 'error');
+	//	drupal_access_denied();
+	//	module_invoke_all('exit');
+	//	exit();
+	//}
 }
 
 function general_mods_permission() {
@@ -110,10 +88,10 @@ function general_mods_permission() {
       'title' => t('Access ALL user blogs'),
       'description' => t('Access all user blogs'),
     ),
-		GENERAL_MODS_ACCESS_OPEN_BLOGS => array(
-      'title' => t('Access blogs shared by users'),
-      'description' => t('Access open blogs only'),
-    ),
+//		GENERAL_MODS_ACCESS_OPEN_BLOGS => array(
+//      'title' => t('Access blogs shared by users'),
+//      'description' => t('Access open blogs only'),
+//    ),
   );
 }
 
@@ -170,15 +148,15 @@ function general_mods_form_alter(&$form, &$form_state, $form_id) {
 		
 		$form['general_mods_blog_settings']['general_mods_user_blog_privacy_setting'] = array(
 			'#type' => 'checkbox',
-			'#title' => 'Do not allow other students to see my posts',
-			'#description' => 'You will not be able to see other students\' posts as well if you check this option.<br />You can only change this setting <em>every 48 hours</em>.',
+			'#title' => 'Private (only Teachers will see my posts)',
+			//'#description' => 'You will not be able to see other students\' posts as well if you check this option.<br />You can only change this setting <em>every 48 hours</em>.',
 			'#default_value' => isset($user_loaded->data['general_mods_user_blog_privacy_setting']['value']) ? $user_loaded->data['general_mods_user_blog_privacy_setting']['value'] : 0,			
 		);
 		
-		if(!user_access('administer users') && isset($user_loaded->data['general_mods_user_blog_privacy_setting']['last_changed'])) {
-			$privacy_last_changed = $user_loaded->data['general_mods_user_blog_privacy_setting']['last_changed'];
-			$form['general_mods_blog_settings']['general_mods_user_blog_privacy_setting']['#disabled'] = time() < strtotime('48 hours', $privacy_last_changed);
-		}
+		//if(!user_access('administer users') && isset($user_loaded->data['general_mods_user_blog_privacy_setting']['last_changed'])) {
+		//	$privacy_last_changed = $user_loaded->data['general_mods_user_blog_privacy_setting']['last_changed'];
+		//	$form['general_mods_blog_settings']['general_mods_user_blog_privacy_setting']['#disabled'] = time() < strtotime('48 hours', $privacy_last_changed);
+		//}
 		
 	}else if($form_id == 'blog_node_form'){
 		$form['author']['#access'] = TRUE;
