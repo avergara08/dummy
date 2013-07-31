@@ -105,7 +105,12 @@
 
 	<!-- 960 Container -->
 	<div class="container">
-
+		<?php if ($messages): ?>
+			<!--<div class="notification notice closeable" style="margin: 40px 0 0px 0;">-->
+				<?php print $messages; ?>
+			<!--</div>-->
+		<?php endif; ?>
+		
 		<!-- Sixteen Columns -->
 		<div class="sixteen columns">
 
