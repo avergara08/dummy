@@ -162,7 +162,7 @@
 
 		<!-- Photo Stream -->
 		<div class="four columns">
-			<h4>The International 2012</h4>
+			<h4>The International 2013</h4>
 			<div class="flickr-widget">
 				<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=6&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=84574136@N06"></script>
 				<div class="clearfix"></div>
