@@ -49,28 +49,55 @@ function general_mods_menu() {
 
 function _general_mods_deny_blog_access($blog_owner_uid = null){
 	global $user;
-	if($user->uid){
-		$allow = user_access(GENERAL_MODS_ACCESS_OPEN_BLOGS);
-		if($allow) {
-			$blog_owner = user_load($blog_owner_uid);
-			if(!$blog_owner)
-				return;
-			
-			$do_not_share = isset($blog_owner->data['general_mods_user_blog_privacy_setting']['value']) ? $blog_owner->data['general_mods_user_blog_privacy_setting']['value'] : 0;
-			$allow = !$do_not_share;
-			if(!$allow)
-				drupal_set_message('The owner chose to not share this blog. Now, begone!', 'error');
-		}
-		
-		if(!$allow){
+	
+	$blog_owner = user_load($blog_owner_uid);
+	if(!$blog_owner)
+		return;
+	
+	$private_blog = isset($blog_owner->data['general_mods_user_blog_privacy_setting']['value']) ? $blog_owner->data['general_mods_user_blog_privacy_setting']['value'] : 0;
+	
+	if($private_blog) {
+		if(user_is_anonymous()) {
+			drupal_set_message('Please login first to access this page.', 'warning');
+			drupal_goto('user', array('query' => drupal_get_destination()));
+		} else {
+			drupal_set_message('The owner chose to not share this blog. Now, begone!', 'error');
 			drupal_access_denied();
 			module_invoke_all('exit');
 			exit();
 		}
-	}else{
-		drupal_set_message('Please login first to access this page.', 'warning');
-		drupal_goto('user', array('query' => drupal_get_destination()));
 	}
+
+	//
+	//
+	////if($user->uid){
+	//	$allow = user_access(GENERAL_MODS_ACCESS_OPEN_BLOGS);
+	//	$private_blog = 0;
+	//	if($allow) {
+	//		$blog_owner = user_load($blog_owner_uid);
+	//		if(!$blog_owner)
+	//			return;
+	//		
+	//		$private_blog = isset($blog_owner->data['general_mods_user_blog_privacy_setting']['value']) ? $blog_owner->data['general_mods_user_blog_privacy_setting']['value'] : 0;
+	//		if($private_blog && !user_is_anonymous())
+	//			drupal_set_message('The owner chose to not share this blog. Now, begone!', 'error');
+	//			
+	//		//$allow = !$do_not_share;
+	//		//if(!$allow)
+	//		//	drupal_set_message('The owner chose to not share this blog. Now, begone!', 'error');
+	//	}
+	//	
+	//	if($allow)
+	//	
+	//	if(!$allow){
+	//		drupal_access_denied();
+	//		module_invoke_all('exit');
+	//		exit();
+	//	}
+	////}else{
+	//	//drupal_set_message('Please login first to access this page.', 'warning');
+	//	//drupal_goto('user', array('query' => drupal_get_destination()));
+	////}
 }
 
 function general_mods_permission() {

@@ -310,3 +310,7 @@ label.option{
 #wrapper img{
   border-radius: 4px;
 }
+
+li.comment_forbidden{
+  margin-top: 5px;
+}

@@ -23,6 +23,8 @@ if(isset($content['links']['blog'])){
   $content['links']['blog']['#links']['blog_usernames_blog']['title'] = 'Back to ' . strip_tags($name) . ' \'s blog';
 }
 foreach($content['links']['comment']['#links'] as $k => $link){
+  if($k == 'comment_forbidden')
+    continue;
   $content['links']['comment']['#links'][$k]['attributes']['class'] = 'button color';
 }
 
