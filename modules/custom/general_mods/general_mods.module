@@ -51,8 +51,11 @@ function _general_mods_deny_blog_access($blog_owner_uid = null){
 	global $user;
 	
 	$blog_owner = user_load($blog_owner_uid);
-	if(!$blog_owner)
-		return;
+	if(!$blog_owner) {
+		drupal_access_denied();
+		module_invoke_all('exit');
+		exit();
+	}
 	
 	$private_blog = isset($blog_owner->data['general_mods_user_blog_privacy_setting']['value']) ? $blog_owner->data['general_mods_user_blog_privacy_setting']['value'] : 0;
 	
