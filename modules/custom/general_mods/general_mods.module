@@ -123,13 +123,15 @@ function general_mods_form_alter(&$form, &$form_state, $form_id) {
 		foreach($collapsible_fields as $field_name) {
 			if(isset($form[$field_name])){
 				$form[$field_name]['#collapsible'] = TRUE;
-				$form[$field_name]['#collapsed'] = TRUE;
-				if($field_name == 'picture')
-					$form[$field_name]['#weight'] = -49;
-				else
+				if($field_name == 'picture'){
+					$form[$field_name]['#weight'] = 3;
+				} else {
 					$form[$field_name]['#weight'] = 50;
+					$form[$field_name]['#collapsed'] = TRUE;
+				}
 			}
 		}
+		
 		
 		if(isset($form['account'])){
 			$form['account']['#prefix'] = '<br /><div class="line"></div><br />';
