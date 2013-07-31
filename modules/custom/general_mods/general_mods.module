@@ -124,7 +124,7 @@ function general_mods_form_alter(&$form, &$form_state, $form_id) {
 			if(isset($form[$field_name])){
 				$form[$field_name]['#collapsible'] = TRUE;
 				if($field_name == 'picture'){
-					$form[$field_name]['#weight'] = 3;
+					$form[$field_name]['#weight'] = 4;
 				} else {
 					$form[$field_name]['#weight'] = 50;
 					$form[$field_name]['#collapsed'] = TRUE;
