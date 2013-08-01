@@ -1,5 +1,4 @@
 <?php
-
 $tags = isset($node->field_blog_tags['und']) ? $node->field_blog_tags['und'] : array();
 $tags_arr = array();
 foreach($tags as $tag){
@@ -23,7 +22,7 @@ if(isset($content['links']['blog'])){
   $content['links']['blog']['#links']['blog_usernames_blog']['title'] = 'Back to ' . strip_tags($name) . ' \'s blog';
 }
 foreach($content['links']['comment']['#links'] as $k => $link){
-  if($k == 'comment_forbidden')
+  if(in_array($k, array('comment_forbidden', 'comment-add')))
     continue;
   $content['links']['comment']['#links'][$k]['attributes']['class'] = 'button color';
 }
@@ -78,7 +77,7 @@ $comment_link = l($comment_label, 'node/' . $node->nid, array('fragment' => 'com
       // Remove the "Add new comment" link on the teaser page or if the comment
       // form is being displayed on the same page.
       if ($teaser || !empty($content['comments']['comment_form'])) {
-        unset($content['links']['comment']['#links']['comment-add']);
+        //unset($content['links']['comment']['#links']['comment-add']);
       }
       // Only display the wrapper div if there are links.
       $links = render($content['links']);

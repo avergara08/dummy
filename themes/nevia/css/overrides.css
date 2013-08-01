@@ -311,6 +311,7 @@ img.blog-large-image{
   border-radius: 4px;
 }
 
-li.comment_forbidden{
+li.comment_forbidden,
+li.comment-add{
   margin-top: 5px;
 }
