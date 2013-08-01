@@ -315,3 +315,7 @@ li.comment_forbidden,
 li.comment-add{
   margin-top: 5px;
 }
+
+fieldset#edit-notify-settings{
+  border-top: none;
+}

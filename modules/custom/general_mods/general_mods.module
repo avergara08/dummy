@@ -172,6 +172,11 @@ function general_mods_form_alter(&$form, &$form_state, $form_id) {
 	} else if($form_id == 'user_register_form') {
 		// redirect to login page after registration
 		$form['#submit'][] = '_general_mods_redirect_after_registration';
+	} else if($form_id == 'comment_node_blog_form') {
+		$form['notify_settings']['#type'] = 'fieldset';
+		//$form['notify_settings']['#title'] = '&nbsp;';
+		//$form['notify_settings']['#collapsible'] = true;
+		//$form['notify_settings']['#attributes'] = array('style' => 'border-top: none;');
 	}
 }
 
