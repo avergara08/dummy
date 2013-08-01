@@ -319,3 +319,7 @@ li.comment-add{
 fieldset#edit-notify-settings{
   margin-top: 10px;
 }
+
+.container li a.active{
+  color: #888;
+}
